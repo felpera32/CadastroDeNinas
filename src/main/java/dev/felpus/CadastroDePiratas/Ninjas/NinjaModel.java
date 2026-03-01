@@ -25,6 +25,7 @@ public class NinjaModel {
 
     private int idade;
 
+    @Column(unique = true) //Faz o dado ser unico
     private String email;
 
     //Mais de um ninja pra uma unica "missao"
