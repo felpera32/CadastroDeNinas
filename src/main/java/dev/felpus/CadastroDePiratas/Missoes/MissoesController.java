@@ -27,7 +27,6 @@ public class MissoesController {
     }
 
     //DELETE -- Mandar uma requisição para deletar as missões
-    @DeleteMapping
     public String deletarMissao(){
         return "Missão deletada com sucesso";
     }
