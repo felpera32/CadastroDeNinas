@@ -3,7 +3,7 @@ package dev.felpus.CadastroDePiratas.Ninjas;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping
+@RequestMapping("/ninjas")
 public class NinjaController {
 
     @GetMapping("/msg")
@@ -21,13 +21,13 @@ public class NinjaController {
     }
 
     //procurar ninjas por id (READ)
-    @GetMapping("/todos")
+    @GetMapping("/listar")
     public String mostrarTodos(){
         return "Mostrando os ninjas";
     }
 
-    //mostrar todos os ninjas (READ)
-    @GetMapping("/todosID")
+    //mostrar todos os ninjas por ID (READ)
+    @GetMapping("/listarID")
     public String mostrarPorID(){
         return "Mostrando os ninjas por ID";
     }
