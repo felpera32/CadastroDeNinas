@@ -2,9 +2,19 @@ package dev.felpus.CadastroDePiratas.Ninjas;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/ninjas")
 public class NinjaController {
+
+
+
+    private NinjaService ninjaService;
+
+    public NinjaController(NinjaService ninjaService) {
+        this.ninjaService = ninjaService;
+    }
 
     @GetMapping("/msg")
     public String boasVindas(){
@@ -15,21 +25,22 @@ public class NinjaController {
 
     // CRUD
     //add ninja (CREATE)
+    //@RequestBody manda json com os dados pelo corpo da requisição
     @PostMapping("/criar")
-    public String criarNinja(){
-        return "Ninja criado";
+    public NinjaModel criarNinja(@RequestBody NinjaModel ninja){
+        return ninjaService.criarNinja(ninja);
     }
 
     //procurar ninjas por id (READ)
     @GetMapping("/listar")
-    public String mostrarTodos(){
-        return "Mostrando os ninjas";
+    public List<NinjaModel> listarNinjas(){
+        return ninjaService.listarNinjas();
     }
 
     //mostrar todos os ninjas por ID (READ)
-    @GetMapping("/listarID")
-    public String mostrarPorID(){
-        return "Mostrando os ninjas por ID";
+    @GetMapping("/listar/{id}")
+    public NinjaModel listarNinjasPorId(@PathVariable Long id){
+        return ninjaService.listarNinjasPorId(id);
     }
 
 
@@ -44,4 +55,6 @@ public class NinjaController {
     public String deletarNinjaID(){
         return "Deletar ninja por ID";
     }
+
+
 }
