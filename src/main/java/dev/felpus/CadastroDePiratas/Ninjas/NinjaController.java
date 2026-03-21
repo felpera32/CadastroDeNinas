@@ -27,7 +27,7 @@ public class NinjaController {
     //add ninja (CREATE)
     //@RequestBody manda json com os dados pelo corpo da requisição
     @PostMapping("/criar")
-    public NinjaModel criarNinja(@RequestBody NinjaModel ninja){
+    public NinjaDTO criarNinja(@RequestBody NinjaDTO ninja){
         return ninjaService.criarNinja(ninja);
     }
 
