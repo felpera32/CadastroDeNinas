@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
 @Data //Cria TODOS OS getter e setters
 @NoArgsConstructor //Cria um construtor no args
 @AllArgsConstructor //Cria um construtor com todos os argumentos
+@ToString(exclude = "missoes")
 public class NinjaModel {
 
     @Id //Fala q o atributo abaixo e o ID
