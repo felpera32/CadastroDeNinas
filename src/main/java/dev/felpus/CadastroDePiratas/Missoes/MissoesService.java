@@ -10,7 +10,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/missoes")
 public class MissoesService {
-    private MissoesRepository missoesRepository;
+    private final MissoesRepository missoesRepository;
 
     public MissoesService(MissoesRepository missoesRepository) {
         this.missoesRepository = missoesRepository;
