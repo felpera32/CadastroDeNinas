@@ -1,4 +1,6 @@
 package dev.felpus.CadastroDePiratas.Missoes;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -14,32 +16,56 @@ public class MissoesController {
 
     //GET -- Mandar uma requisição para mostrar as missões
     @GetMapping("/listar")
-    public List<MissoesModel> listarMissao(){
-        return missaoService.listarMissoes();
+    public ResponseEntity<List<MissoesModel>> listarMissao(){
+        List<MissoesModel> missoes = missaoService.listarMissoes();
+        return ResponseEntity.ok(missoes);
     }
 
 
     //POST -- Mandar uma requisição para criar as missões
     @PostMapping("/criar")
-    public MissoesModel criarMissao(@RequestBody MissoesModel missao){
-        return missaoService.criarMissao(missao);
+    public ResponseEntity<String> criarMissao(@RequestBody MissoesModel missao){
+        MissoesModel novaMissao = missaoService.criarMissao(missao);
+        return ResponseEntity.status(HttpStatus.ACCEPTED)
+                .body("A missão: " + novaMissao.getNomeMissao() + ". Foi criada com sucesso!");
     }
 
     //Listar por id
     @GetMapping("/listar/{id}")
-    public MissoesModel listarMissaoPorId(@PathVariable Long id){
-        return missaoService.listarPorId(id);
+    public ResponseEntity<?> listarMissaoPorId(@PathVariable Long id){
+        MissoesModel missao = missaoService.listarPorId(id);
+        if(missao != null){
+            return ResponseEntity.ok(missao);
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Missão de ID: " + id + ". Não foi encontrada!");
+        }
     }
 
     //PUT -- Mandar uma requisição para alterar as missões
     @PutMapping("/alterar/{id}")
-    public MissoesModel alterarMissao(@PathVariable Long id, @RequestBody MissoesModel atualizarMissao){
-        return missaoService.atualizarMissao(id, atualizarMissao);
+    public ResponseEntity<?> alterarMissao(@PathVariable Long id, @RequestBody MissoesModel atualizarMissao){
+        if(missaoService.listarPorId(id) != null){
+            MissoesModel alterarMissao = missaoService.atualizarMissao(id, atualizarMissao);
+            return ResponseEntity.ok(alterarMissao);
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Missão de ID: \" + id + \". Não foi encontrada!");
+        }
     }
 
     //DELETE -- Mandar uma requisição para deletar as missões
     @DeleteMapping("/deletar/{id}")
-    public void deletarMissao(@PathVariable Long id){
-        missaoService.deletarMissao(id);
+    public ResponseEntity<?> deletarMissao(@PathVariable Long id){
+        if(missaoService.listarPorId(id) != null){
+            missaoService.deletarMissao(id);
+            return ResponseEntity.ok("A missão de ID " + id + " foi deletada com sucesso!");
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("A missão de ID: " + id + " não foi encontrada");
+        }
     }
 }
