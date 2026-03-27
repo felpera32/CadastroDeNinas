@@ -58,7 +58,7 @@ public class NinjaControllerUI {
     @PostMapping("/salvar")
     public String salvarNinja(@ModelAttribute NinjaDTO ninja, RedirectAttributes redirectAttributes){
         ninjaService.criarNinja(ninja);
-        redirectAttributes.addFlashAttribute("mensagem", "Ninja cadastrado com sucesso!");
+        redirectAttributes.addFlashAttribute("mensagem", "o!Ninja cadastrado com sucess");
         return "redirect:/ninjas/ui/listar";
     }
 

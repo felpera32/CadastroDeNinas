@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dados do Ninja</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f172a, #020617);
+            color: #e2e8f0;
+        }
+
+        /* Título */
+        h1 {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 30px;
+            font-size: 30px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        /* Container principal */
+        .main-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(30, 41, 59, 0.9);
+            padding: 30px;
+            border-radius: 16px;
+
+            /* efeito glass */
+            backdrop-filter: blur(10px);
+
+            /* sombra mais elegante */
+            box-shadow:
+                0 10px 25px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.05);
+
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .main-container:hover {
+            transform: translateY(-3px);
+            box-shadow:
+                0 15px 35px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.08);
+        }
+
+        /* Nome da missão */
+        .main-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 22px;
+            color: #c084fc;
+        }
+
+        /* Texto */
+        .main-container p {
+            margin: 10px 0;
+            font-size: 15px;
+            color: #cbd5f5;
+        }
+
+        /* Destaque nos labels */
+        .main-container strong {
+            color: #a855f7;
+        }
+
+        /* Botão */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+
+            margin: 30px auto;
+            display: flex;
+
+            width: fit-content;
+            padding: 10px 18px;
+
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        /* Botão voltar */
+        .btn.voltar {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(139, 92, 246, 0.2));
+            color: #c084fc;
+            border: 1px solid rgba(168, 85, 247, 0.4);
+        }
+
+        .btn.voltar:hover {
+            background: linear-gradient(135deg, #a855f7, #7c3aed);
+            color: white;
+            transform: translateY(-3px) scale(1.03);
+
+            box-shadow: 0 8px 20px rgba(168, 85, 247, 0.5);
+        }
+
+        /* Pequeno efeito de clique */
+        .btn:active {
+            transform: scale(0.97);
+        }
+
+
+    </style>
+</head>
+<body>
+<h1>Dados do Ninja</h1>
+<div class="main-container">
+    <h2 th:text="${missao.nomeMissao}"></h2>
+    <p><strong>Dificuldade: </strong> <span th:text="${missao.dificuldadeMissao}"></span></p>
+
+</div>
+<a class="btn voltar" href="/missoes/ui/listar">Voltar para a lista de missões</a>
+
+</body>
+</html>
