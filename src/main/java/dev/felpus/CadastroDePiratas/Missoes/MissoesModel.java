@@ -25,7 +25,6 @@ public class MissoesModel {
 
 
     //private NinjaModel ninja;
-
     //uma missao pode ter varios ninjas
     @OneToMany(mappedBy = "missoes")
     @JsonIgnore

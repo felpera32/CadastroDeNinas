@@ -3,12 +3,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-
 @RestController
 @RequestMapping("missoes")
 public class MissoesController {
 
-    private final MissoesService missaoService;
+    private MissoesService missaoService;
 
     public MissoesController(MissoesService missaoService) {
         this.missaoService = missaoService;
@@ -16,24 +15,25 @@ public class MissoesController {
 
     //GET -- Mandar uma requisição para mostrar as missões
     @GetMapping("/listar")
-    public ResponseEntity<List<MissoesModel>> listarMissao(){
-        List<MissoesModel> missoes = missaoService.listarMissoes();
+    public ResponseEntity<List<MissoesDTO>> listarMissao(){
+        List<MissoesDTO> missoes = missaoService.listarMissoes();
         return ResponseEntity.ok(missoes);
     }
 
 
     //POST -- Mandar uma requisição para criar as missões
     @PostMapping("/criar")
-    public ResponseEntity<String> criarMissao(@RequestBody MissoesModel missao){
-        MissoesModel novaMissao = missaoService.criarMissao(missao);
+    public ResponseEntity<String> criarMissao(@RequestBody MissoesDTO missao){
+        MissoesDTO novaMissao = missaoService.criarMissao(missao);
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body("A missão: " + novaMissao.getNomeMissao() + ". Foi criada com sucesso!");
+
     }
 
     //Listar por id
     @GetMapping("/listar/{id}")
     public ResponseEntity<?> listarMissaoPorId(@PathVariable Long id){
-        MissoesModel missao = missaoService.listarPorId(id);
+        MissoesDTO missao = missaoService.listarPorId(id);
         if(missao != null){
             return ResponseEntity.ok(missao);
         }
@@ -45,9 +45,9 @@ public class MissoesController {
 
     //PUT -- Mandar uma requisição para alterar as missões
     @PutMapping("/alterar/{id}")
-    public ResponseEntity<?> alterarMissao(@PathVariable Long id, @RequestBody MissoesModel atualizarMissao){
+    public ResponseEntity<?> alterarMissao(@PathVariable Long id, @RequestBody MissoesDTO atualizarMissao){
         if(missaoService.listarPorId(id) != null){
-            MissoesModel alterarMissao = missaoService.atualizarMissao(id, atualizarMissao);
+            MissoesDTO alterarMissao = missaoService.atualizarMissao(id, atualizarMissao);
             return ResponseEntity.ok(alterarMissao);
         }
         else{
